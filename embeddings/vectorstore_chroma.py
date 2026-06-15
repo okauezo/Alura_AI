@@ -1,2 +1,15 @@
 import chromadb
 from sentence_transformers import SentenceTransformer
+
+modelo = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+
+textos = [
+    "O paciente pode consultar seus exames pelo portal.",
+    "O agendamento deve ser feito pelo aplicativo.",
+    "Em caso de dúvidas, entre em contato com o atendimento."
+]
+
+vetores = modelo.encode(textos)
+
+client = chromadb.PersistentClient(path="./chroma_db")
+collection = client.get_or_create_collection(name="documentos_alura")
