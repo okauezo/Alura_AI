@@ -12,4 +12,7 @@ textos = [
 vetores = modelo.encode(textos)
 
 client = chromadb.PersistentClient(path="./chroma_db")
+
 collection = client.get_or_create_collection(name="documentos_alura")
+
+ids = ["doc1", "doc2", "doc3"]
