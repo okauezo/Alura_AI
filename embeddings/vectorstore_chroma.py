@@ -30,3 +30,11 @@ collection.upsert(
     metadatas=metadados
 )   
 
+pergunta = "Como posso agendar uma consulta?"
+
+vetor_pergunta = modelo.encode([pergunta])
+resultados = collection.query(
+    query_embeddings=vetor_pergunta.tolist(),
+    n_results=2
+)
+
