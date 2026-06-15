@@ -11,6 +11,6 @@ textos = [
 vetores = modelo.encode(textos)
 for texto, vetor in zip(textos, vetores):
     print("Texto:", texto)
-    print("Vetor:", vetor[:5])
+    print("Vetor:", vetor[:10])
     print("Tamanho do vetor:", len(vetor))
-    print()
+    print("-" * 50)
