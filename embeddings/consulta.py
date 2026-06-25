@@ -10,5 +10,5 @@ documentos = [
     "Como medir o impacto da IA no atendimento ao cliente?"
 ]
 
-
+vetores_documentos = modelo.encode(documentos)
 
