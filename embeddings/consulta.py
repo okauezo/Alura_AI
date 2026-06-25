@@ -12,3 +12,9 @@ documentos = [
 
 vetores_documentos = modelo.encode(documentos)
 
+consulta = "Quais são os benefícios de usar IA no atendimento ao cliente?"
+
+vetor_consulta = modelo.encode([consulta])
+
+similaridades = cosine_similarity(vetor_consulta, vetores_documentos)
+
