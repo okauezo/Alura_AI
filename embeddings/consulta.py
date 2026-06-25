@@ -20,5 +20,6 @@ similaridades = cosine_similarity(vetor_consulta, vetores_documentos)
 
 indice_mais_parecido = similaridades[0].argmax()
 
-
-
+print("Consulta:", consulta)
+print("Documento mais parecido:", documentos[indice_mais_parecido])
+print("Similaridade:", similaridades[0][indice_mais_parecido])
