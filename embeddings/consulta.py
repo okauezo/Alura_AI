@@ -18,3 +18,7 @@ vetor_consulta = modelo.encode([consulta])
 
 similaridades = cosine_similarity(vetor_consulta, vetores_documentos)
 
+indice_mais_parecido = similaridades[0].argmax()
+
+
+
