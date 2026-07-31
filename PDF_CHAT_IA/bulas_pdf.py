@@ -17,6 +17,9 @@ class bulas_pdf:
         self.embedding_model = None
         self.vector_store = None
         self.llm = None
+        self.reranker = None
+
+    def
 
     def carregar_pdf(self):
         if self.file is None:
