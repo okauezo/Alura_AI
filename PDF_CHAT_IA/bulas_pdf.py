@@ -19,7 +19,6 @@ class bulas_pdf:
         self.llm = None
         self.reranker = None
 
-    def
 
     def carregar_pdf(self):
         if self.file is None:
@@ -57,20 +56,16 @@ class bulas_pdf:
         }
 
         for chunk in self.chunks:
-        # Pega o texto em minúsculo só pra facilitar a comparação
             texto_minusculo = chunk.page_content.lower()
 
-        # Valor padrão, caso nenhuma seção conhecida seja encontrada
             secao_identificada = "Não identificada"
 
-        # Procura se alguma palavra-chave de seção aparece no texto do chunk
             for palavra_chave, nome_secao in secoes_conhecidas.items():
                 if palavra_chave in texto_minusculo:
                     secao_identificada = nome_secao
                     break
 
-        # chunk.metadata já existe (veio do PyPDFLoader com "source" e "page")
-        # aqui só adicionamos novas chaves a esse dicionário
+        
             chunk.metadata["origem"] = self.file
             chunk.metadata["secao"] = secao_identificada
             chunk.metadata["categoria"] = categoria
@@ -119,6 +114,9 @@ class bulas_pdf:
         chunks_candidatos = self.vector_store.similarity_search(pergunta, k=k_inicial)
         pares = [[pergunta, chunk.page_content] for chunk in chunks_candidatos]
         notas = self.reranker.predict(pares)
+
+        chunks_com_notas = list(zip(chunks_candidatos, notas))
+        chunks_com_notas.sort(key=lambda item: item[1], reverse=True)
 
 
         chunks_relevantes = self.vector_store.similarity_search(pergunta, k=k_final)
