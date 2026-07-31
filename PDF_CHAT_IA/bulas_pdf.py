@@ -115,7 +115,13 @@ class bulas_pdf:
         if self.reranker is None:
             raise ValueError("Nenhum reranker foi configurado ainda. Rode configurar_reranker() primeiro.")
 
-        chunks_relevantes = self.vector_store.similarity_search(pergunta, k=k)
+
+        chunks_candidatos = self.vector_store.similarity_search(pergunta, k=k_inicial)
+        pares = [[pergunta, chunk.page_content] for chunk in chunks_candidatos]
+        notas = self.reranker.predict(pares)
+
+
+        chunks_relevantes = self.vector_store.similarity_search(pergunta, k=k_final)
         contexto = "\n\n".join([chunk.page_content for chunk in chunks_relevantes])
 
         prompt = f"""Responda a pergunta abaixo usando APENAS as informações do contexto fornecido. Se a resposta não estiver no contexto, diga que não sabe.
