@@ -107,11 +107,13 @@ class bulas_pdf:
         api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
         self.llm = ChatAnthropic(model=modelo, api_key=api_key)
 
-    def perguntar(self, pergunta, k=3):
+    def perguntar(self, pergunta, k_inicial=10, k_final=3):
         if self.vector_store is None:
             raise ValueError("Nenhum vector store foi criado ainda. Rode criar_vector_store() primeiro.")
         if self.llm is None:
             raise ValueError("Nenhum LLM foi configurado ainda. Rode configurar_llm() primeiro.")
+        if self.reranker is None:
+            raise ValueError("Nenhum reranker foi configurado ainda. Rode configurar_reranker() primeiro.")
 
         chunks_relevantes = self.vector_store.similarity_search(pergunta, k=k)
         contexto = "\n\n".join([chunk.page_content for chunk in chunks_relevantes])
