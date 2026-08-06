@@ -119,7 +119,7 @@ class bulas_pdf:
         chunks_com_notas.sort(key=lambda item: item[1], reverse=True)
 
 
-        chunks_relevantes = [chunk for chunk, nota in chunks_com_notas[:k_final]]        contexto = "\n\n".join([chunk.page_content for chunk in chunks_relevantes])
+        chunks_relevantes = [chunk for chunk, nota in chunks_com_notas[:k_final]]
         contexto = "\n\n".join([chunk.page_content for chunk in chunks_relevantes])
         
         prompt = f"""Responda a pergunta abaixo usando APENAS as informações do contexto fornecido. Se a resposta não estiver no contexto, diga que não sabe.
