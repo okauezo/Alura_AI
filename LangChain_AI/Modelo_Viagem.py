@@ -1,5 +1,5 @@
 from langchain_anthropic import ChatAnthropic
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 import os
 
@@ -10,9 +10,21 @@ numero_de_dias = 15
 numero_de_pessoas = 4
 atividade = "praia"
 
+modelo_de_prompt = PromptTemplate(
+    template=""" 
+    Crie um roteiro de viajem de {dias} dias, 
+    para uma familia com {numero_de_pessoas} crinças,
+    que gostamd de {atividade}.
+    """
+)
 
+prompt = modelo_de_prompt.format(
+    dias=numero_de_dias,
+    numero_de_pessoas=numero_de_pessoas,
+    atividade=atividade
+)
 
-prompt = f"Planeje uma viagem de {numero_de_dias} dias para {numero_de_pessoas} pessoas com foco em atividades de {atividade}. Forneça um itinerário detalhado, incluindo sugestões de hospedagem, restaurantes e atrações turísticas."
+print("Prompt : \n", prompt)  
 modelo = ChatAnthropic(
     model="claude-sonnet-5",
     anthropic_api_key=api_key
