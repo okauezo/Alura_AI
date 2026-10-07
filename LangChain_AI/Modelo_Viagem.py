@@ -17,9 +17,10 @@ parseador = JsonOutputParser(pydantic_object=Destino)
 promt_cidade = PromptTemplate(
     template=""" 
     Sugira uma cidade dado o meu interrese por {interesse}.
+    {formato_de_saida}
     """,
-    input_variables = ["interesse"]
-    partial_variables = {"format_instructions": parseador.get_format_instructions() }
+    input_variables = ["interesse"],
+    partial_variables = {"formato_de_saida": parseador.get_format_instructions() }
 )
 
 modelo = ChatAnthropic(
@@ -27,7 +28,7 @@ modelo = ChatAnthropic(
     anthropic_api_key=api_key
 )
 
-cadeia = promt_cidade | modelo | StrOutputParser()
+cadeia = promt_cidade | modelo | parseador
 
 resposta = cadeia.invoke(
     {
