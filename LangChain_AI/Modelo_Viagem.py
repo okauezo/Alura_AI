@@ -37,12 +37,19 @@ Sugira restaurantes pouplares entre locais em {cidade}
     partial_variables={"formato_de_saida": parseador_restaurantes.get_format_instructions()}
 )
 
+prompt_cultural = PromptTemplate(
+    template="Sugira atividade e locais culturais para visitar em {cidade}"
+
 modelo = ChatAnthropic(
     model="claude-sonnet-5",
     anthropic_api_key=api_key
 )
 
-cadeia = promt_cidade | modelo | parseador_destino
+cadeia_1 = prompt_cidade | modelo | parseador_destino
+cadeia_2 = prompt_restaurantes | modelo | parseador_restaurantes
+cadeia_3 = prompt_cultural | modelo | StrOutputParser()
+
+cadeia = (cadeia_1 | cadeia_2 | cadeia_3)
 
 resposta = cadeia.invoke(
     {
