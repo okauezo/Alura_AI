@@ -12,6 +12,11 @@ class Destino(BaseModel):
     cidade: str = Field(description="A Cidade sugerida para viagem")
     motivo: str = Field(description="O motivo para visitar a cidade")
 
+
+class restaurtantes(BaseModel):
+    cidade: str = Field(description="A Cidade sugerida para visitar")
+    restaurantes: str = Field(description="Restaurantes recomendados da cidade")
+
 parseador = JsonOutputParser(pydantic_object=Destino)
 
 promt_cidade = PromptTemplate(
