@@ -26,7 +26,15 @@ promt_cidade = PromptTemplate(
     {formato_de_saida}
     """,
     input_variables = ["interesse"],
-    partial_variables = {"formato_de_saida": parseador.get_format_instructions() }
+    partial_variables = {"formato_de_saida": parseador_destino.get_format_instructions() }
+)
+
+prompt_restaurantes = PromptTemplate(
+    template="""
+Sugira restaurantes pouplares entre locais em {cidade}
+{formato_de_saida}
+""",
+    partial_variables={"formato_de_saida": parseador_restaurantes.get_format_instructions()}
 )
 
 modelo = ChatAnthropic(
@@ -34,7 +42,7 @@ modelo = ChatAnthropic(
     anthropic_api_key=api_key
 )
 
-cadeia = promt_cidade | modelo | parseador
+cadeia = promt_cidade | modelo | parseador_destino
 
 resposta = cadeia.invoke(
     {
