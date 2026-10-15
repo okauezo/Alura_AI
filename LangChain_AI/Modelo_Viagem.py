@@ -9,8 +9,8 @@ load_dotenv()
 api_key = os.getenv("ANTHROPIC_API_KEY")
 
 class Destino(BaseModel):
-    cidade: str = Field("A Cidade sugerida para viagem")
-    motivo: str = Field("O motivo para visitar a cidade")
+    cidade: str = Field(description="A Cidade sugerida para viagem")
+    motivo: str = Field(description="O motivo para visitar a cidade")
 
 parseador = JsonOutputParser(pydantic_object=Destino)
 
