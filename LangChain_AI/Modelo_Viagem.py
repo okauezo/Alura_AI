@@ -13,14 +13,14 @@ class Destino(BaseModel):
     motivo: str = Field(description="O motivo para visitar a cidade")
 
 
-class restaurtantes(BaseModel):
+class Restaurantes(BaseModel):
     cidade: str = Field(description="A Cidade sugerida para visitar")
     restaurantes: str = Field(description="Restaurantes recomendados da cidade")
 
 parseador_destino = JsonOutputParser(pydantic_object=Destino)
 parseador_restaurantes = JsonOutputParser(pydantic_object=Restaurantes)
 
-promt_cidade = PromptTemplate(
+prompt_cidade = PromptTemplate(
     template=""" 
     Sugira uma cidade dado o meu interrese por {interesse}.
     {formato_de_saida}
@@ -39,6 +39,7 @@ Sugira restaurantes pouplares entre locais em {cidade}
 
 prompt_cultural = PromptTemplate(
     template="Sugira atividade e locais culturais para visitar em {cidade}"
+)
 
 modelo = ChatAnthropic(
     model="claude-sonnet-5",
