@@ -17,7 +17,8 @@ class restaurtantes(BaseModel):
     cidade: str = Field(description="A Cidade sugerida para visitar")
     restaurantes: str = Field(description="Restaurantes recomendados da cidade")
 
-parseador = JsonOutputParser(pydantic_object=Destino)
+parseador_destino = JsonOutputParser(pydantic_object=Destino)
+parseador_restaurantes = JsonOutputParser(pydantic_object=Restaurantes)
 
 promt_cidade = PromptTemplate(
     template=""" 
