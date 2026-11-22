@@ -54,7 +54,7 @@ cadeia = (cadeia_1 | cadeia_2 | cadeia_3)
 
 resposta = cadeia.invoke(
     {
-        "interesse": "montanhas"
+        "interesse": "deserto do Atacama"
     }
 )
 print(resposta)
