@@ -45,3 +45,20 @@ def classificar_pergunta(pergunta: str) -> str:
     """
     resposta = __llm.invoke(prompt)
     return str(resposta.content).strip()
+
+async def executar_supervisor(texto_usuario: str) -> str:
+    agente = classificar_pergunta(texto_usuario)
+
+    if agente == "cartao_credito":
+        resultado = agente_cartao_credito.invoke(
+            {"messages": [HumanMessage(content=texto_usuario)]}
+        )
+    elif agente == "abrir_conta":
+        resultado = agente_abertura_conta.invoke(
+            {"messages": [HumanMessage(content=texto_usuario)]}
+        )
+    else:
+        resultado = "Não consegui entender sua solicitação"
+
+    mensagem_ia = resultado["messages"][-1]
+    return str(mensagem_ia.content)
