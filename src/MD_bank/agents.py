@@ -1,6 +1,6 @@
 from langchain_anthropic import ChatAnthropic
 from langchain.agents import create_agent
-from langchain_core.prompts import HumanMessage
+from langchain_core.messages import HumanMessage
 from langchain.chat_models import init_chat_model
 from pydantic import Field, BaseModel
 from dotenv import load_dotenv
@@ -9,7 +9,8 @@ import os
 load_dotenv()
 
 _llm = init_chat_model(
-    model="claude-sonnet-5.5",
+    model="claude-sonnet-5-5",
+    model_provider="anthropic",
     api_key=os.getenv("ANTHROPIC_API_KEY"),
     temperature=0.7,
     max_tokens=1000
@@ -43,7 +44,7 @@ def classificar_pergunta(pergunta: str) -> str:
 
     Responda apenas com o nome do agente.
     """
-    resposta = __llm.invoke(prompt)
+    resposta = _llm.invoke(prompt)
     return str(resposta.content).strip()
 
 async def executar_supervisor(texto_usuario: str) -> str:
@@ -58,7 +59,7 @@ async def executar_supervisor(texto_usuario: str) -> str:
             {"messages": [HumanMessage(content=texto_usuario)]}
         )
     else:
-        resultado = "Não consegui entender sua solicitação"
+        return "Não consegui entender sua solicitação"
 
     mensagem_ia = resultado["messages"][-1]
     return str(mensagem_ia.content)
