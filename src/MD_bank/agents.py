@@ -21,3 +21,12 @@ agente_cartao_credito = create_agent(
     system_prompt=("Você é um assistente virtual especializado em ajudar clientes com informações sobre seus cartões de crédito do Banco MDBank."
                    "Ajuda o cliente com duvidas sobre limites, faturas, transações e benefícios do cartão de crédito."),
 )
+
+agente_abertura_conta = create_agent(
+    _llm,
+    tools=[],
+    system_prompt=(
+        "Você é um especialista em abertura de contas do banco MDBank. "
+        "Ajude o cliente a abrir uma conta e explique os tipos disponíveis."
+    ),
+)
