@@ -30,3 +30,18 @@ agente_abertura_conta = create_agent(
         "Ajude o cliente a abrir uma conta e explique os tipos disponíveis."
     ),
 )
+
+def classificar_pergunta(pergunta: str) -> str:
+    prompt = f"""
+    Classifique a intenção do usuário.
+
+    Possíveis agentes:
+    cartao_credito
+    abrir_conta
+
+    Pergunta: {pergunta}
+
+    Responda apenas com o nome do agente.
+    """
+    resposta = __llm.invoke(prompt)
+    return str(resposta.content).strip()
